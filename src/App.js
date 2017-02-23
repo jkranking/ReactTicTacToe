@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import './Tile.jsx';
-import './Announcement.jsx';
-import './ResetButton.jsx';
+import Announcement from './Announcement';
+import ResetButton from './ResetButton';
+import Tile from './Tile';
 
 class App extends Component {
 	constructor() {
@@ -12,24 +12,37 @@ class App extends Component {
 			 ' ', ' ', ' ',
 			 ' ', ' ', ' ',
 			 ' ', ' ', ' '
-			]
+			],
+			turn: 'x',
+			winner: 'null'
 		}
 	}
 
+updateBoard(loc, player){
+}
 
+resetBoard(){
+}
 
   render() {
     return (
       <div className="container">
       	<div className="menu">
       		<h1>Tic-Tac-Toe</h1>
-      		<Announcement />
-      		<ResetButton />
+      		<Announcement winner={this.state.winner}/>
+      		<ResetButton reset={this.resetBoard.bind(this)}/>
       	</div>
-      	{this.state.gameBoard.map(function(value, i){
-      		<Tile/>
-      	})}
-      </div>
+	      	{this.state.gameBoard.map(function(value, i){
+	      		return (
+	      			<Tile
+		      			key={i}
+		      			loc={i}
+		      			value={value}
+		      			updateBoard={this.updateBoard.bind(this)}
+		      			turn={this.state.turn} />
+  					);
+  				}.bind(this))}    		
+	      </div>
 
     );
   }
