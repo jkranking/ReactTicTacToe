@@ -18,8 +18,20 @@ class App extends Component {
 		}
 	}
 
+resetBoard(){
+	this.setState({
+		gameBoard: [
+		 ' ', ' ', ' ',
+		 ' ', ' ', ' ',
+		 ' ', ' ', ' '
+		],
+		turn: 'x',
+		winner: 'null'
+	})
+}
+
 updateBoard(loc, player){
-	if(this.state.gameBoard[loc] === 'x' || this.state.gameBoard[loc] === 'o'){
+	if(this.state.gameBoard[loc] === 'x' || this.state.gameBoard[loc] === 'o' || this.state.winner === 'x' || this.state.winner === 'o'){
 		//Invalid move
 	return;
 	}
@@ -73,18 +85,7 @@ updateBoard(loc, player){
 	if(moves.length === 9) {
 		this.setState({winner: 'd'});
 	}
-}
-
-resetBoard(){
-	this.setState({
-		gameBoard: [
-		 ' ', ' ', ' ',
-		 ' ', ' ', ' ',
-		 ' ', ' ', ' '
-		],
-		turn: 'x',
-		winner: 'null'
-	})
+	this.setState({turn: (this.state.turn === 'x') ? 'o' : 'x'});
 }
 
   render() {
@@ -92,7 +93,7 @@ resetBoard(){
       <div className="container">
       	<div className="menu">
       		<h1>Tic-Tac-Toe</h1>
-      		<Announcement winner={this.state.winner}/>
+      		<Announcement winner={this.state.winner} />
       		<ResetButton reset={this.resetBoard.bind(this)}/>
       	</div>
 	      	{this.state.gameBoard.map(function(value, i){
@@ -105,7 +106,7 @@ resetBoard(){
 		      			turn={this.state.turn} />
   					);
   				}.bind(this))}    		
-	      </div>
+	    </div>
 
     );
   }
