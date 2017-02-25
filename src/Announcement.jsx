@@ -2,19 +2,16 @@ import React, { Component } from 'react';
 import './Announcement.css';
 
 export default class Announcement extends Component {
-	render() { console.log(this.props.winner)
-
+	render() {
 		if(this.props.winner === 'null'){
-
 			return (
-				<div className='hidden' >
-					<h2>Game Over</h2>
+				<div>
 				</div>
 			)
 		} else {
 			return (
 				<div className='visible' >
-					<h2>Game Over</h2>
+					<h2>Game Over - {this.props.winner} Wins!</h2>
 				</div>
 			)
 		}
